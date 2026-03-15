@@ -1,6 +1,10 @@
-# C Compilation flow
+# C Compilation Flow
 
 ```bash
-gcc file.c file.c file.c -o file
-./file
+gcc -Wall -Wextra -std=c11 \
+	main.c file_io.c \
+	v1/authentication.c v1/registration.c v1/group_interaction.c v1/messaging.c \
+	-o group_chat
+
+./group_chat
 ```

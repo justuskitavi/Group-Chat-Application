@@ -1,21 +1,27 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "../file_io.h"
+#include "authentication.h"
 #include "registration.h"
 
 #define USERS_FILE "users.txt"
 
-bool authenticate_user(char* username){
+bool authenticate_user(char* username, size_t username_capacity){
     char password[20];
     char stored_hash[20];
     char input_hash_str[20];
 
+    if (username == NULL || username_capacity == 0) {
+        return false;
+    }
+
     printf("Enter username: ");
-    fgets(username, sizeof(username), stdin);
+    fgets(username, username_capacity, stdin);
     username[strcspn(username, "\n")] = '\0';
 
     printf("Enter password: ");
-    scanf("%s", password);
+    scanf("%19s", password);
 
     char* user_record = search_string(USERS_FILE, username);
     

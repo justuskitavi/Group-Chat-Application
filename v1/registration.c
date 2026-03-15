@@ -1,19 +1,17 @@
 #include <stdio.h>
 #include <string.h>
 #include "../file_io.h"
+#include "registration.h"
 
 #define GROUPS_FILE "groups.txt"
 #define USERS_FILE "users.txt"
 #define MEMBERSHIPS_FILE "memberships.txt"
 
-char username[100] = "Ian Gitonga";
-char group_name[100] = "full bloom";
-
 unsigned long hash_password(char *str){
     unsigned long hash = 5381;
     int c;
 
-    while (c = *str++)
+    while ((c = *str++))
         hash = ((hash << 5) + hash) + c;
 
     return hash;
@@ -63,7 +61,7 @@ bool user_registration(){
     username[strcspn(username, "\n")] = '\0';
 
     printf("Enter your password: ");
-    scanf("%s", &password);
+    scanf("%19s", password);
 
     unsigned long hash = hash_password(password);
 

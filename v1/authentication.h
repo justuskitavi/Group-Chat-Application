@@ -2,6 +2,7 @@
 #define AUTHENTICATION_H
 
 #include <stdbool.h>
+#include <stddef.h>
 
 // File constants
 #define USERS_FILE "users.txt"
@@ -12,6 +13,6 @@
  * Returns true if matched and false if not
  * A pointer to where the username is stored is passed to allow reusability of the username
  */
-bool authenticate_user(char* username);
+bool authenticate_user(char* username, size_t username_capacity);
 
 #endif // AUTHENTICATION_H
