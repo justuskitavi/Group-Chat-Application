@@ -23,7 +23,7 @@ bool group_registration(const char* username);
  * Removes a group from GROUPS_FILE and scrubs all its memberships.
  * Returns true if the group was found and processed.
  */
-bool delete_group(const char* username, char* group_name);
+bool delete_group(const char* username);
 
 /**
  * Handles user signup: captures name, hashes password, and saves to file.

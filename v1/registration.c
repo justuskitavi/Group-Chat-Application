@@ -2,6 +2,7 @@
 #include <string.h>
 #include "../file_io.h"
 #include "registration.h"
+#include "group_interaction.h"
 
 #define GROUPS_FILE "groups.txt"
 #define USERS_FILE "users.txt"
@@ -28,6 +29,7 @@ bool group_registration(const char* username){
     snprintf(group_record, sizeof(group_record), "%s %s", username, group_name);
 
     if(write_to_file(GROUPS_FILE, group_record)){
+        write_to_file(MEMBERSHIPS_FILE, group_record);
         return true;
     }
 
@@ -35,19 +37,27 @@ bool group_registration(const char* username){
     return false;
 }
 
-bool delete_group(const char* username, char* group_name){
-    if(search_in_file(GROUPS_FILE,group_name)){
+bool delete_group(const char* username){
+    char group_name[100];
+
+    printf("Enter name of group: ");
+    fgets(group_name, sizeof(group_name), stdin);
+    group_name[strcspn(group_name, "\n")] = '\0';
+
+    if(search_in_file(GROUPS_FILE,group_name) && is_group_admin(username, group_name)){
         char member_record[150];
         snprintf(member_record, sizeof(member_record), "%s %s", username, group_name);
 
-        printf("%s", member_record);
-
         delete_all_lines_containing(GROUPS_FILE, member_record);
         delete_all_lines_containing(MEMBERSHIPS_FILE, group_name);
+
         return true;
+    }else{
+        printf("Could not delete group.");
+        return false;
     }
 
-    perror("Group does not exist");
+    perror("Error occurred. Could not delete group.");
     return false;
 }
 
@@ -67,9 +77,8 @@ bool user_registration(){
 
     sprintf(user_data, "%s %lx", username, hash);
 
-    printf("%s", user_data);
-
     if(write_to_file(USERS_FILE, user_data)){
+        printf("Registered successfully.\n");
         return true;
     }
 

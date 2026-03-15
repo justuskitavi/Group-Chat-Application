@@ -52,7 +52,7 @@ void show_user_groups(const char* target_user) {
         count++;
 
         if (strstr(line, target_user) != NULL) {
-            printf("%s", line);
+            printf("%s", line + strlen(target_user) + 1);
         }
     }
 
@@ -64,7 +64,7 @@ void show_user_groups(const char* target_user) {
     fclose(file);
 }
 
-void show_group_members(const char* group_name) {
+void show_group_members(const char* username) {
     FILE* file = fopen(MEMBERSHIPS_FILE, "r");
     if (file == NULL) {
         printf("No group memberships found (file missing).\n");
@@ -73,31 +73,55 @@ void show_group_members(const char* group_name) {
 
     char line[256];
     int count = 0;
+    char group_name[100];
 
-    printf("\n--- Members for %s ---\n", group_name);
+    printf("Enter name of group: ");
+    fgets(group_name, sizeof(group_name), stdin);
+    group_name[strcspn(group_name, "\n")] = '\0';
 
-    while (fgets(line, sizeof(line), file) != NULL) {
-        count++;
+    if(is_group_admin(username, group_name)){
+        printf("\n--- Members for %s ---\n", group_name);
 
-        if (strstr(line, group_name) != NULL) {
-            printf("%s", line);
+        while (fgets(line, sizeof(line), file) != NULL) {
+            count++;
+
+            if (strstr(line, group_name) != NULL) {
+                printf("%s", line);
+            }
         }
-    }
 
-    if (count == 0) {
-        printf("No members joined.\n");
+        if (count == 0) {
+            printf("No members joined.\n");
+        }
+        printf("\n---------------------------\n");
+    }else{
+        printf("Only admins can view group members.");
     }
-    printf("\n---------------------------\n");
 
     fclose(file);
 }
 
-bool leave_group(const char* username, char* group_name){
+bool is_group_admin(const char* username, char* group_name){
+    char admin_record[200];
+    snprintf(admin_record, sizeof(admin_record), "%s %s", username, group_name);
+
+    if(search_in_file(GROUPS_FILE,admin_record)){
+        return true;
+    }
+
+    return false;
+}
+
+bool leave_group(const char* username){
+    char group_name[100];
+
+    printf("Enter name of group to leave: ");
+    fgets(group_name, sizeof(group_name), stdin);
+    group_name[strcspn(group_name, "\n")] = '\0';
+
     if(search_in_file(GROUPS_FILE,group_name)){
         char member_record[150];
         snprintf(member_record, sizeof(member_record), "%s %s", username, group_name);
-
-        printf("%s", member_record);
 
         delete_all_lines_containing(MEMBERSHIPS_FILE, member_record);
         return true;

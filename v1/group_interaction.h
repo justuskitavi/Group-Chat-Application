@@ -29,12 +29,19 @@ void show_user_groups(const char* target_user);
  * Searches MEMBERSHIPS_FILE and prints all users 
  * belonging to a specific group.
  */
-void show_group_members(const char* group_name);
+void show_group_members(const char* usernname);
+
+/**
+ * Searches through the GROUPS_FILE to determine whether the current
+ * user is the admin if the group. Used in conjunction with other functions
+ * e.g. group deletion
+ */
+bool is_group_admin(const char* username, char* group_name);
 
 /**
  * Removes the membership record for a specific user and group.
  * Returns true if the operation was successful.
  */
-bool leave_group(const char* username, char* group_name);
+bool leave_group(const char* username);
 
 #endif // GROUP_INTERACTION_H

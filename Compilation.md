@@ -1,10 +1,11 @@
 # C Compilation Flow
 
+## V1 - Stand-alone non-client version
+
 ```bash
-gcc -Wall -Wextra -std=c11 \
-	main.c file_io.c \
-	v1/authentication.c v1/registration.c v1/group_interaction.c v1/messaging.c \
-	-o group_chat
+cd v1
+
+gcc main.c ../file_io.c authentication.c registration.c group_interaction.c messaging.c -o group_chat
 
 ./group_chat
 ```
