@@ -35,7 +35,7 @@ void group_dashboard(char* username){
                 char g_name[100];
                 fgets(g_name, sizeof(g_name), stdin);
                 g_name[strcspn(g_name, "\n")] = '\0';
-                enter_chat_room(username, g_name);
+                start_chat_session(username, g_name);
                 break;
             case 5:
                 return; // Logout
