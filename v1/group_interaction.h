@@ -14,10 +14,10 @@ void show_all_groups();
 
 /**
  * Prompts user for a group name, verifies its existence, 
- * and adds the global username to MEMBERSHIPS_FILE if not already present.
+ * and adds the provided username to MEMBERSHIPS_FILE if not already present.
  * Returns true on success.
  */
-bool join_group();
+bool join_group(const char* username);
 
 /**
  * Searches MEMBERSHIPS_FILE and prints all records 

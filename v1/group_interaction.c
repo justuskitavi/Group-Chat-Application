@@ -1,11 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "../file_io.h"
+#include "group_interaction.h"
 
 #define GROUPS_FILE "groups.txt"
 #define MEMBERSHIPS_FILE "memberships.txt"
-char username[100] = "Ian Kimani";
-char group_name[100] = "Unataka nini";
 
 void show_all_groups(){
     char* group_names = read_from_file(GROUPS_FILE);
@@ -13,7 +13,7 @@ void show_all_groups(){
     free(group_names);
 }
 
-bool join_group(){
+bool join_group(const char* username){
     char group_name[100];
 
     printf("Enter name of group to join: ");
@@ -44,8 +44,6 @@ void show_user_groups(const char* target_user) {
     }
 
     char line[256];
-    char current_user[100];
-    char current_group[100];
     int count = 0;
 
     printf("\n--- Groups for %s ---\n", target_user);
@@ -74,8 +72,6 @@ void show_group_members(const char* group_name) {
     }
 
     char line[256];
-    char current_user[100];
-    char current_group[100];
     int count = 0;
 
     printf("\n--- Members for %s ---\n", group_name);
