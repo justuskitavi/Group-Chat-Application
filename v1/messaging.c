@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "messaging.h"
-#include "../file_io.h"
+#include "file_io.h"
 
 #define MESSAGES_FILE "messages.txt"
 

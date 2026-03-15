@@ -15,7 +15,7 @@ A modular, file-based group chat system implemented in C. This application allow
 - **Join Group:** Users can join existing groups to participate in conversations.
 - **Leave Group:** Members can opt to leave a group at any time.
 - **Delete Group:** Group administrators have the authority to delete a group, which also clears all associated memberships.
-- **View Memberships:** 
+- **View Memberships:**
   - List all groups a specific user has joined.
   - List all members within a specific group.
 

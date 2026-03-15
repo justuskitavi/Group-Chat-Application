@@ -72,7 +72,6 @@ bool search_in_file(const char* filename, const char* target) {
     while (fgets(line, sizeof(line), file)) {
         // strstr returns NULL if the target is not in the current line
         if (strstr(line, target) != NULL) {
-            // printf("Found '%s' at line %d: %s", target, line_number, line);
             found = true;
         }
         line_number++;

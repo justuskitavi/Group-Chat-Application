@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../file_io.h"
+#include "file_io.h"
 #include "group_interaction.h"
 
 #define GROUPS_FILE "groups.txt"
