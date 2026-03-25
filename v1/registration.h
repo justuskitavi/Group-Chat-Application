@@ -11,7 +11,7 @@
 /**
  * Generates a djb2 hash for a given password string.
  */
-unsigned long hash_password(char *str);
+unsigned long hash_password(char *password);
 
 /**
  * Prompts for a group name and saves a record of "username group_name".

@@ -3,6 +3,8 @@
 .idea
 *.exe
 *.txt
+server
+client
 
 # Ignore build directory with compilation results 
 build/

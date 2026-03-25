@@ -8,11 +8,11 @@
 #define USERS_FILE "users.txt"
 #define MEMBERSHIPS_FILE "memberships.txt"
 
-unsigned long hash_password(char *str){
+unsigned long hash_password(char *password){
     unsigned long hash = 5381;
     int c;
 
-    while ((c = *str++))
+    while ((c = *password++))
         hash = ((hash << 5) + hash) + c;
 
     return hash;
