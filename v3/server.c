@@ -19,7 +19,7 @@
 
 void svr_addr(struct sockaddr_in *addr, const int port) {
     addr->sin_family = AF_INET;
-    addr->sin_addr.s_addr = inet_addr("127.0.0.1");
+    addr->sin_addr.s_addr = INADDR_ANY;
     addr->sin_port = htons(port);
 }
 
@@ -65,7 +65,6 @@ int get_client(const ServerConfig* server) {
     const int client_socket = accept(server->server_socket, (struct sockaddr *) &client_address, &address_length);
 
     if (client_socket < 0) {
-
         if (errno == EINTR) {
             return -1;
         }
