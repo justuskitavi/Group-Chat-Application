@@ -6,7 +6,7 @@
  * Returns the socket file descriptor on success.
  * Exits the program on failure.
  */
-int client_init(void);
+int client_init(char* server_ip);
 
 /**
  * The main entry point for the authenticated user session.

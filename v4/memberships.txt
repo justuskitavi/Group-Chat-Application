@@ -1,2 +1,0 @@
-3 | Linda | lindasgroup
-2 | Linda | 12345group

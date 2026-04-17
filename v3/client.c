@@ -14,12 +14,12 @@
 #define MAX_BUFFER_SIZE 1024
 #define INPUT_READY "<<INPUT_READY>>"
 
-void consume_newline(void){
+void consume_newline(){
     int character;
     while ((character = getchar()) != '\n' && character != EOF);
 }
 
-int client_init(void){
+int client_init(char* server_ip){
     const int client_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (client_socket < 0) {
         perror("Could not create socket");
@@ -28,7 +28,7 @@ int client_init(void){
 
     struct sockaddr_in server_address;
     server_address.sin_family = AF_INET;
-    server_address.sin_addr.s_addr = inet_addr("127.0.0.1");
+    server_address.sin_addr.s_addr = inet_addr(server_ip);
     server_address.sin_port = htons(9000);
 
     const int connection_status = connect(

@@ -8,7 +8,14 @@
 int main(void)
 {
     setvbuf(stdout, NULL, _IONBF, 0);
-    const int client_socket = client_init();
+    char server_ip[20];
+
+    printf("Provide IP address of server to connect to: ");
+    
+    fgets(server_ip, sizeof(server_ip), stdin);
+    server_ip[strcspn(server_ip, "\n")] = '\0';
+
+    const int client_socket = client_init(server_ip);
 
     while (1) {
         printf("\n--- WELCOME TO GROUP CHAT ---\n"

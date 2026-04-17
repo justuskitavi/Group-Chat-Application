@@ -164,7 +164,7 @@ static void handle_enter_chat(int sock, struct sockaddr_in *server_addr, const c
     }
 }
 
-int client_init(struct sockaddr_in *server_address){
+int client_init(struct sockaddr_in *server_address, char* server_ip){
     const int client_socket = socket(AF_INET, SOCK_DGRAM, 0);
     if (client_socket < 0) {
         perror("Could not create socket");
@@ -172,7 +172,7 @@ int client_init(struct sockaddr_in *server_address){
     }
 
     server_address->sin_family = AF_INET;
-    server_address->sin_addr.s_addr = inet_addr("127.0.0.1");
+    server_address->sin_addr.s_addr = inet_addr(server_ip);
     server_address->sin_port = htons(9000);
 
     return client_socket;

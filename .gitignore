@@ -3,6 +3,7 @@
 .idea
 *.exe
 *.txt
+group_chat
 server
 client
 
