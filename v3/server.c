@@ -73,6 +73,11 @@ int get_client(const ServerConfig* server) {
         return -1;
     }
 
+    char client_ip_address[INET_ADDRSTRLEN];
+    
+    inet_ntop(AF_INET, &client_address.sin_addr, client_ip_address, INET_ADDRSTRLEN);
+    printf("Connection received from: %s\n", client_ip_address);
+
     return client_socket;
 }
 
@@ -86,7 +91,15 @@ void* client_handler(void* client) {
         char *response = receive_message(client_socket);
         
         if (response == NULL) {
-            printf("Client disconnected.\n");
+            struct sockaddr_in client_address;
+            socklen_t address_length = sizeof(client_address);
+            getpeername(client_socket, (struct sockaddr *)&client_address, &address_length);
+
+            char client_ip_address[INET_ADDRSTRLEN];
+            inet_ntop(AF_INET, &client_address.sin_addr, client_ip_address, INET_ADDRSTRLEN);
+
+            printf("Client %s disconnected.\n", client_ip_address);
+
             close(client_socket);
             return NULL;
         }
